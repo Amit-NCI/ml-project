@@ -1,4 +1,4 @@
-from django.shortcuts import render , redirect
+from django.shortcuts import render, redirect
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 
@@ -9,15 +9,16 @@ import os
 
 @csrf_exempt
 def form(request):
-    return render(request,"form.html")
+    return render(request, "form.html")
+
 
 def home(request):
-    return render(request,"home.html")
+    return render(request, "home.html")
+
 
 @csrf_exempt
 def predict_salar_with_linear_regression(request):
     try:
-        
         numerical_features = {
             'remote_ratio': float(request.POST.get('remote_ratio', 0)),
             'years_experience': float(request.POST.get('years_experience', 0)),
@@ -36,71 +37,57 @@ def predict_salar_with_linear_regression(request):
             'industry': request.POST.get('industry', '').strip(),
         }
 
-        
         cat_df = pd.DataFrame([categorical_features])
         num_df = pd.DataFrame([numerical_features])
-        
+
         algo_selected = request.POST.get("algorithm")
-        match algo_selected:
-            case "linear":
-                BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-                salary_predictor_path = os.path.join(BASE_DIR, 'salary_predictor.pkl')
-                encoder_path = os.path.join(BASE_DIR, 'encoder.pkl')
 
-                with open(salary_predictor_path, "rb") as file:
-                    salary_predict_pkl = joblib.load(file)
-                with open(encoder_path, "rb") as file:
-                    enc_pkl = joblib.load(file)
-                # Transform categorical input with encoder
-                encoded_cat = enc_pkl.transform(cat_df)
-                # Convert sparse matrix to dense array
-                encoded_cat_array = encoded_cat.toarray()
-                # Get feature names after encoding
-                feature_names = enc_pkl.get_feature_names_out(cat_df.columns)
+        if algo_selected == "linear":
+            BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+            salary_predictor_path = os.path.join(BASE_DIR, 'salary_predictor.pkl')
+            encoder_path = os.path.join(BASE_DIR, 'encoder.pkl')
 
-                # Create DataFrame from encoded categorical features with proper columns
-                encoded_cat_df = pd.DataFrame(encoded_cat_array, columns=feature_names)
+            with open(salary_predictor_path, "rb") as file:
+                salary_predict_pkl = joblib.load(file)
+            with open(encoder_path, "rb") as file:
+                enc_pkl = joblib.load(file)
 
-                # Combine encoded categorical features with numerical features
-                input_df = pd.concat([encoded_cat_df, num_df], axis=1)
+            encoded_cat = enc_pkl.transform(cat_df)
+            encoded_cat_array = encoded_cat.toarray()
+            feature_names = enc_pkl.get_feature_names_out(cat_df.columns)
+            encoded_cat_df = pd.DataFrame(encoded_cat_array, columns=feature_names)
 
-                # Predict salary
-                pred = salary_predict_pkl.predict(input_df)
-                prediction = round(pred[0], 2)
+            input_df = pd.concat([encoded_cat_df, num_df], axis=1)
+            pred = salary_predict_pkl.predict(input_df)
+            prediction = round(pred[0], 2)
 
-            case "xgboost":
-                BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-                xgb_pipeline_path = os.path.join(BASE_DIR, 'xgboost_salary_model.pkl')
+        elif algo_selected == "xgboost":
+            BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+            xgb_pipeline_path = os.path.join(BASE_DIR, 'xgboost_salary_model.pkl')
+            xgb_pipeline = joblib.load(xgb_pipeline_path)
+            input_df = pd.concat([cat_df, num_df], axis=1)
+            prediction = round(xgb_pipeline.predict(input_df)[0], 2)
 
-                # Load the saved pipeline (only once ideally, but can load here)
-                xgb_pipeline = joblib.load(xgb_pipeline_path)
+        elif algo_selected == "decision tree":
+            BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+            tree_model_path = os.path.join(BASE_DIR, 'amit_model.pkl')
+            tree_encoder_path = os.path.join(BASE_DIR, 'amit_encoder.pkl')
 
-                #df 
-                input_df = pd.concat([cat_df, num_df])
+            tree_model = joblib.load(tree_model_path)
+            encoders = joblib.load(tree_encoder_path)
 
-                # Then use this pipeline to predict on your processed input dataframe
-                prediction = round(xgb_pipeline.predict(input_df)[0], 2)
+            for col in cat_df.columns:
+                cat_df[col] = encoders[col].transform(cat_df[col])
 
-            case "decision tree":
-                BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-                tree_model_path = os.path.join(BASE_DIR, 'amit_model.pkl')
-                tree_encoder_path = os.path.join(BASE_DIR, 'amit_encoder.pkl')
-                tree_model = joblib.load(tree_model_path)
-                encoders = joblib.load(tree_encoder_path)
+            input_df = pd.concat([cat_df, num_df], axis=1)
+            prediction = round(tree_model.predict(input_df)[0], 2)
 
-                for col in cat_df.columns:
-                    cat_df[col] = encoders[col].transform(cat_df[col])
+        else:
+            raise ValueError(f"Unsupported algorithm: {algo_selected}")
 
-                input_df = pd.concat([cat_df, num_df], axis=1)
-
-                prediction = round(tree_model.predict(input_df)[0], 2)
-                print(prediction)
-            
         print("Prediction:", prediction)
-
-        
         return render(request, "form.html", {"predicted_salary": prediction})
+
     except Exception as e:
         print("Error during prediction:", e)
         return render(request, "form.html", {"error": f"Prediction failed: {e}"})
-
