@@ -1,0 +1,103 @@
+{
+    "algorithm": "Decision Tree",
+    "metrics": {
+        "R2_Score": 0.8357,
+        "Accuracy (%)": 83.57,
+        "MSE": 598901765.74,
+        "MAE": 16483.11,
+        "Latency (ms)": 0.0003,
+        "Throughput (pred/sec)": 2909343.82
+    },
+    "samples": [
+        {
+            "input_features": [
+                16.0,
+                3.0,
+                1.0,
+                4.0,
+                2.0,
+                4.0,
+                0.0,
+                7.0,
+                100.0,
+                9.0,
+                2000.0,
+                7.1
+            ],
+            "actual_salary": 138919,
+            "predicted_salary": 148091.79
+        },
+        {
+            "input_features": [
+                13.0,
+                3.0,
+                0.0,
+                17.0,
+                2.0,
+                17.0,
+                2.0,
+                5.0,
+                50.0,
+                9.0,
+                2306.0,
+                5.5
+            ],
+            "actual_salary": 187208,
+            "predicted_salary": 156169.11
+        },
+        {
+            "input_features": [
+                3.0,
+                3.0,
+                0.0,
+                14.0,
+                1.0,
+                14.0,
+                1.0,
+                1.0,
+                100.0,
+                9.0,
+                601.0,
+                5.8
+            ],
+            "actual_salary": 158264,
+            "predicted_salary": 138533.09
+        },
+        {
+            "input_features": [
+                3.0,
+                3.0,
+                0.0,
+                13.0,
+                1.0,
+                13.0,
+                1.0,
+                14.0,
+                0.0,
+                7.0,
+                724.0,
+                8.5
+            ],
+            "actual_salary": 139174,
+            "predicted_salary": 141421.67
+        },
+        {
+            "input_features": [
+                11.0,
+                1.0,
+                1.0,
+                1.0,
+                0.0,
+                1.0,
+                3.0,
+                6.0,
+                100.0,
+                12.0,
+                1327.0,
+                5.1
+            ],
+            "actual_salary": 205534,
+            "predicted_salary": 145332.0
+        }
+    ]
+}

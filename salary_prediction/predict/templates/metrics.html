@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Model Metrics</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center">
+  <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-xl">
+    <h1 class="text-3xl font-bold text-center text-indigo-600 mb-6">Model Performance Metrics</h1>
+
+    <table class="w-full table-auto border-collapse text-gray-700">
+      <tbody>
+        <tr class="border-b">
+          <td class="py-2 font-semibold">Model Used</td>
+          <td class="py-2 text-right">{{ algorithm|title }}</td>
+        </tr>
+        <tr class="border-b">
+          <td class="py-2 font-semibold">Latency (ms)</td>
+          <td class="py-2 text-right">{{ latency }}</td>
+        </tr>
+        <tr class="border-b">
+          <td class="py-2 font-semibold">R² Score</td>
+          <td class="py-2 text-right">{{ r2 }}</td>
+        </tr>
+        <tr class="border-b">
+          <td class="py-2 font-semibold">Mean Squared Error (MSE)</td>
+          <td class="py-2 text-right">{{ mse }}</td>
+        </tr>
+        <tr class="border-b">
+          <td class="py-2 font-semibold">Mean Absolute Error (MAE)</td>
+          <td class="py-2 text-right">{{ mae }}</td>
+        </tr>
+        <tr class="border-b">
+          <td class="py-2 font-semibold">Accuracy (%)</td>
+          <td class="py-2 text-right">{{ accuracy }}</td>
+        </tr>
+        <tr>
+          <td class="py-2 font-semibold">Throughput (req/sec)</td>
+          <td class="py-2 text-right">{{ throughput }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <h2 class="text-xl font-bold text-gray-800 mt-8 mb-2">Sample Predictions</h2>
+<table class="w-full table-auto border-collapse text-sm text-gray-700">
+  <thead>
+    <tr class="bg-gray-200 text-left">
+      <th class="px-3 py-2 border">#</th>
+      <th class="px-3 py-2 border">Input Features</th>
+      <th class="px-3 py-2 border">Actual Salary</th>
+      <th class="px-3 py-2 border">Predicted Salary</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for sample in samples %}
+    <tr class="border-b">
+      <td class="px-3 py-2">{{ forloop.counter }}</td>
+      <td class="px-3 py-2">{{ sample.input_features }}</td>
+      <td class="px-3 py-2">{{ sample.actual_salary }}</td>
+      <td class="px-3 py-2">{{ sample.predicted_salary }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+
+    <div class="mt-6 text-center">
+      <a href="{% url 'form' %}" class="text-indigo-600 hover:underline">← Back to Prediction Form</a>
+    </div>
+  </div>
+</body>
+</html>

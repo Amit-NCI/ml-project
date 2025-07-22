@@ -1,189 +1,409 @@
-<head>
-     <script src="https://cdn.tailwindcss.com"></script>
-</head>
-  <body class="bg-gray-100 min-h-screen flex flex-col items-center justify-center">
-    <nav class="w-full bg-indigo-600 text-white p-4">
-      <div class="max-w-7xl mx-auto flex justify-between items-center">
-        <a href="/" class="text-xl font-semibold">AI Salary Predictor</a>
-        <div class="space-x-4">
-          <a href="https://www.kaggle.com/datasets/bismasajjad/global-ai-job-market-and-salary-trends-2025/data" target="_blank" class="hover:underline">Dataset</a>
-          <a href="#form" class="hover:underline">Test</a>
-        </div>
-      </div>
-    </nav>
-    <div class="max-w-2xl w-full bg-white rounded-2xl shadow-xl p-8 mt-8">
-      <h1 class="text-3xl font-bold text-center text-indigo-600 mb-6">AI Salary Predictor</h1>
-      <p class="text-gray-700 mb-4 text-justify">
-        This project is built using the <strong>AI Job Market dataset</strong>. Our team has trained multiple machine learning models to predict salaries based on job-related input fields. You can enter your information below and select one of four algorithms to see a predicted salary.
-      </p>
-      <form id="form" action="/lr" method="POST" class="space-y-4">
-        <label for="job_title" class="block text-sm font-medium text-gray-700">Job Title</label>
-<select name="job_title" id="job_title" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-  <option value="">-- Select Job Title --</option>
-  <option value="AI Research Scientist">AI Research Scientist</option>
-  <option value="AI Software Engineer">AI Software Engineer</option>
-  <option value="AI Specialist">AI Specialist</option>
-  <option value="NLP Engineer">NLP Engineer</option>
-  <option value="AI Consultant">AI Consultant</option>
-  <option value="AI Architect">AI Architect</option>
-  <option value="Principal Data Scientist">Principal Data Scientist</option>
-  <option value="Data Analyst">Data Analyst</option>
-  <option value="Autonomous Systems Engineer">Autonomous Systems Engineer</option>
-  <option value="AI Product Manager">AI Product Manager</option>
-  <option value="Machine Learning Engineer">Machine Learning Engineer</option>
-  <option value="Data Engineer">Data Engineer</option>
-  <option value="Research Scientist">Research Scientist</option>
-  <option value="ML Ops Engineer">ML Ops Engineer</option>
-  <option value="Robotics Engineer">Robotics Engineer</option>
-  <option value="Head of AI">Head of AI</option>
-  <option value="Deep Learning Engineer">Deep Learning Engineer</option>
-  <option value="Data Scientist">Data Scientist</option>
-  <option value="Machine Learning Researcher">Machine Learning Researcher</option>
-  <option value="Computer Vision Engineer">Computer Vision Engineer</option>
-</select>
 
-        <div>
-          <label for="experience_level" class="block text-sm font-medium text-gray-700">Experience Level</label>
-          <select id="experience_level" name="experience_level" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
-    <option value="EN">Entry</option>
-    <option value="MI">Mid</option>
-    <option value="SE">Senior</option>
-    <option value="EX">Executive</option>
-  </select>
 
-        </div>
-        <div>
-          <label for="employment_type" class="block text-sm font-medium text-gray-700">Employment Type</label>
-          <select id="employment_type" name="employment_type" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
-    <option value="FT">Full-time</option>
-    <option value="PT">Part-time</option>
-    <option value="CT">Contract</option>
-    <option value="FL">Freelance</option>
-  </select>
+
+<!--<head>-->
+<!--     <script src="https://cdn.tailwindcss.com"></script>-->
+<!--</head>-->
+<!--  <body class="bg-gray-100 min-h-screen flex flex-col items-center justify-center">-->
+<!--    <nav class="w-full bg-indigo-600 text-white p-4">-->
+<!--      <div class="max-w-7xl mx-auto flex justify-between items-center">-->
+<!--        <a href="/" class="text-xl font-semibold">AI Salary Predictor</a>-->
+<!--        <div class="space-x-4">-->
+<!--          <a href="https://www.kaggle.com/datasets/bismasajjad/global-ai-job-market-and-salary-trends-2025/data" target="_blank" class="hover:underline">Dataset</a>-->
+<!--          <a href="#form" class="hover:underline">Test</a>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </nav>-->
+<!--    <div class="max-w-2xl w-full bg-white rounded-2xl shadow-xl p-8 mt-8">-->
+<!--      <h1 class="text-3xl font-bold text-center text-indigo-600 mb-6">AI Salary Predictor</h1>-->
+<!--      <p class="text-gray-700 mb-4 text-justify">-->
+<!--        This project is built using the <strong>AI Job Market dataset</strong>. Our team has trained multiple machine learning models to predict salaries based on job-related input fields. You can enter your information below and select one of four algorithms to see a predicted salary.-->
+<!--      </p>-->
+<!--      <form id="form" action="/lr" method="POST" class="space-y-4">-->
+<!--        <label for="job_title" class="block text-sm font-medium text-gray-700">Job Title</label>-->
+<!--<select name="job_title" id="job_title" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">-->
+<!--  <option value="">-- Select Job Title --</option>-->
+<!--  <option value="AI Research Scientist">AI Research Scientist</option>-->
+<!--  <option value="AI Software Engineer">AI Software Engineer</option>-->
+<!--  <option value="AI Specialist">AI Specialist</option>-->
+<!--  <option value="NLP Engineer">NLP Engineer</option>-->
+<!--  <option value="AI Consultant">AI Consultant</option>-->
+<!--  <option value="AI Architect">AI Architect</option>-->
+<!--  <option value="Principal Data Scientist">Principal Data Scientist</option>-->
+<!--  <option value="Data Analyst">Data Analyst</option>-->
+<!--  <option value="Autonomous Systems Engineer">Autonomous Systems Engineer</option>-->
+<!--  <option value="AI Product Manager">AI Product Manager</option>-->
+<!--  <option value="Machine Learning Engineer">Machine Learning Engineer</option>-->
+<!--  <option value="Data Engineer">Data Engineer</option>-->
+<!--  <option value="Research Scientist">Research Scientist</option>-->
+<!--  <option value="ML Ops Engineer">ML Ops Engineer</option>-->
+<!--  <option value="Robotics Engineer">Robotics Engineer</option>-->
+<!--  <option value="Head of AI">Head of AI</option>-->
+<!--  <option value="Deep Learning Engineer">Deep Learning Engineer</option>-->
+<!--  <option value="Data Scientist">Data Scientist</option>-->
+<!--  <option value="Machine Learning Researcher">Machine Learning Researcher</option>-->
+<!--  <option value="Computer Vision Engineer">Computer Vision Engineer</option>-->
+<!--</select>-->
+
+<!--        <div>-->
+<!--          <label for="experience_level" class="block text-sm font-medium text-gray-700">Experience Level</label>-->
+<!--          <select id="experience_level" name="experience_level" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">-->
+<!--    <option value="EN">Entry</option>-->
+<!--    <option value="MI">Mid</option>-->
+<!--    <option value="SE">Senior</option>-->
+<!--    <option value="EX">Executive</option>-->
+<!--  </select>-->
+
+<!--        </div>-->
+<!--        <div>-->
+<!--          <label for="employment_type" class="block text-sm font-medium text-gray-700">Employment Type</label>-->
+<!--          <select id="employment_type" name="employment_type" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">-->
+<!--    <option value="FT">Full-time</option>-->
+<!--    <option value="PT">Part-time</option>-->
+<!--    <option value="CT">Contract</option>-->
+<!--    <option value="FL">Freelance</option>-->
+<!--  </select>-->
 
         
-        </div>
-        <div>
-          <label for="company_location" class="block text-sm font-medium text-gray-700">Company Location</label>
-          <select id="company_location" name="company_location" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
-    <option value="China">China</option>
-    <option value="Canada">Canada</option>
-    <option value="Switzerland">Switzerland</option>
-    <option value="India">India</option>
-    <option value="France">France</option>
-    <option value="Germany">Germany</option>
-    <option value="United Kingdom">United Kingdom</option>
-    <option value="Singapore">Singapore</option>
-    <option value="Austria">Austria</option>
-    <option value="Sweden">Sweden</option>
-    <option value="South Korea">South Korea</option>
-    <option value="Norway">Norway</option>
-    <option value="Netherlands">Netherlands</option>
-    <option value="United States">United States</option>
-    <option value="Israel">Israel</option>
-    <option value="Australia">Australia</option>
-    <option value="Ireland">Ireland</option>
-    <option value="Denmark">Denmark</option>
-    <option value="Finland">Finland</option>
-    <option value="Japan">Japan</option>
-  </select>
+<!--        </div>-->
+<!--        <div>-->
+<!--          <label for="company_location" class="block text-sm font-medium text-gray-700">Company Location</label>-->
+<!--          <select id="company_location" name="company_location" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">-->
+<!--    <option value="China">China</option>-->
+<!--    <option value="Canada">Canada</option>-->
+<!--    <option value="Switzerland">Switzerland</option>-->
+<!--    <option value="India">India</option>-->
+<!--    <option value="France">France</option>-->
+<!--    <option value="Germany">Germany</option>-->
+<!--    <option value="United Kingdom">United Kingdom</option>-->
+<!--    <option value="Singapore">Singapore</option>-->
+<!--    <option value="Austria">Austria</option>-->
+<!--    <option value="Sweden">Sweden</option>-->
+<!--    <option value="South Korea">South Korea</option>-->
+<!--    <option value="Norway">Norway</option>-->
+<!--    <option value="Netherlands">Netherlands</option>-->
+<!--    <option value="United States">United States</option>-->
+<!--    <option value="Israel">Israel</option>-->
+<!--    <option value="Australia">Australia</option>-->
+<!--    <option value="Ireland">Ireland</option>-->
+<!--    <option value="Denmark">Denmark</option>-->
+<!--    <option value="Finland">Finland</option>-->
+<!--    <option value="Japan">Japan</option>-->
+<!--  </select>-->
  
-        <div>
-          <label for="company_size" class="block text-sm font-medium text-gray-700">Company Size</label>
-          <select id="company_size" name="company_size" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
-            <option value="S">Small</option>
-            <option value="M">Medium</option>
-            <option value="L">Large</option>
-          </select>
-        </div>
-        <div>
-          <label for="employee_residence" class="block text-sm font-medium text-gray-700">Employee Residence</label>
-          <select id="employee_residence" name="employee_residence" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
-    <option value="China">China</option>
-    <option value="Ireland">Ireland</option>
-    <option value="South Korea">South Korea</option>
-    <option value="India">India</option>
-    <option value="Singapore">Singapore</option>
-    <option value="Germany">Germany</option>
-    <option value="United Kingdom">United Kingdom</option>
-    <option value="France">France</option>
-    <option value="Austria">Austria</option>
-    <option value="Sweden">Sweden</option>
-    <option value="Norway">Norway</option>
-    <option value="Israel">Israel</option>
-    <option value="United States">United States</option>
-    <option value="Netherlands">Netherlands</option>
-    <option value="Denmark">Denmark</option>
-    <option value="Switzerland">Switzerland</option>
-    <option value="Finland">Finland</option>
-    <option value="Japan">Japan</option>
-    <option value="Canada">Canada</option>
-    <option value="Australia">Australia</option>
-  </select>
-        </div>
-        <div>
-          <label for="remote_ratio" class="block text-sm font-medium text-gray-700">Remote Ratio</label>
-          <select id="remote_ratio" name="remote_ratio" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
-            <option value="0">0%</option>
-            <option value="50">50%</option>
-            <option value="100">100%</option>
-          </select>
-        </div>
-        <div>
-          <label for="education_required" class="block text-sm font-medium text-gray-700">Education Required</label>
-          <select id="education_required" name="education_required" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
-    <option value="Bachelor">Bachelor</option>
-    <option value="Master">Master</option>
-    <option value="Associate">Associate</option>
-    <option value="PhD">PhD</option>
-  </select>
-        </div>
-        <div>
-          <label for="years_experience" class="block text-sm font-medium text-gray-700">Years of Experience</label>
-          <input type="number" id="years_experience" name="years_experience" min="0" max="20" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
-        </div>
-<label for="industry" class="block text-sm font-medium text-gray-700">Industry</label>
-<select name="industry" id="industry" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-  <option value="">-- Select Industry --</option>
-  <option value="Automotive">Automotive</option>
-  <option value="Media">Media</option>
-  <option value="Education">Education</option>
-  <option value="Consulting">Consulting</option>
-  <option value="Healthcare">Healthcare</option>
-  <option value="Gaming">Gaming</option>
-  <option value="Government">Government</option>
-  <option value="Telecommunications">Telecommunications</option>
-  <option value="Manufacturing">Manufacturing</option>
-  <option value="Energy">Energy</option>
-  <option value="Technology">Technology</option>
-  <option value="Real Estate">Real Estate</option>
-  <option value="Finance">Finance</option>
-  <option value="Transportation">Transportation</option>
-  <option value="Retail">Retail</option>
-</select>
-        <div>
-          <label for="job_description_length" class="block text-sm font-medium text-gray-700">Job Description Length</label>
-          <input type="number" id="job_description_length" name="job_description_length" min="500" max="2500" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
-        </div>
-        <div>
-          <label for="benefits_score" class="block text-sm font-medium text-gray-700">Benefits Score</label>
-          <input type="number" id="benefits_score" name="benefits_score" min="1" max="10" step="0.1" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
-        </div>
-        <select name="algorithm" class="p-2 border rounded">
-          <option value="" disabled selected>Select Algorithm</option>
-          <option value="linear">Linear Regression</option>
-          <option value="random_forest">Random Forest</option>
-          <option value="xgboost">XGBoost</option>
-          <option value="decision tree">decisiton tree</option>
-        </select>
-        <div class="flex justify-center">
-          <button type="submit" class="mt-4 px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">Predict Salary</button>
-        </div>
-      </form>
+<!--        <div>-->
+<!--          <label for="company_size" class="block text-sm font-medium text-gray-700">Company Size</label>-->
+<!--          <select id="company_size" name="company_size" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">-->
+<!--            <option value="S">Small</option>-->
+<!--            <option value="M">Medium</option>-->
+<!--            <option value="L">Large</option>-->
+<!--          </select>-->
+<!--        </div>-->
+<!--        <div>-->
+<!--          <label for="employee_residence" class="block text-sm font-medium text-gray-700">Employee Residence</label>-->
+<!--          <select id="employee_residence" name="employee_residence" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">-->
+<!--    <option value="China">China</option>-->
+<!--    <option value="Ireland">Ireland</option>-->
+<!--    <option value="South Korea">South Korea</option>-->
+<!--    <option value="India">India</option>-->
+<!--    <option value="Singapore">Singapore</option>-->
+<!--    <option value="Germany">Germany</option>-->
+<!--    <option value="United Kingdom">United Kingdom</option>-->
+<!--    <option value="France">France</option>-->
+<!--    <option value="Austria">Austria</option>-->
+<!--    <option value="Sweden">Sweden</option>-->
+<!--    <option value="Norway">Norway</option>-->
+<!--    <option value="Israel">Israel</option>-->
+<!--    <option value="United States">United States</option>-->
+<!--    <option value="Netherlands">Netherlands</option>-->
+<!--    <option value="Denmark">Denmark</option>-->
+<!--    <option value="Switzerland">Switzerland</option>-->
+<!--    <option value="Finland">Finland</option>-->
+<!--    <option value="Japan">Japan</option>-->
+<!--    <option value="Canada">Canada</option>-->
+<!--    <option value="Australia">Australia</option>-->
+<!--  </select>-->
+<!--        </div>-->
+<!--        <div>-->
+<!--          <label for="remote_ratio" class="block text-sm font-medium text-gray-700">Remote Ratio</label>-->
+<!--          <select id="remote_ratio" name="remote_ratio" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">-->
+<!--            <option value="0">0%</option>-->
+<!--            <option value="50">50%</option>-->
+<!--            <option value="100">100%</option>-->
+<!--          </select>-->
+<!--        </div>-->
+<!--        <div>-->
+<!--          <label for="education_required" class="block text-sm font-medium text-gray-700">Education Required</label>-->
+<!--          <select id="education_required" name="education_required" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">-->
+<!--    <option value="Bachelor">Bachelor</option>-->
+<!--    <option value="Master">Master</option>-->
+<!--    <option value="Associate">Associate</option>-->
+<!--    <option value="PhD">PhD</option>-->
+<!--  </select>-->
+<!--        </div>-->
+<!--        <div>-->
+<!--          <label for="years_experience" class="block text-sm font-medium text-gray-700">Years of Experience</label>-->
+<!--          <input type="number" id="years_experience" name="years_experience" min="0" max="20" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">-->
+<!--        </div>-->
+<!--<label for="industry" class="block text-sm font-medium text-gray-700">Industry</label>-->
+<!--<select name="industry" id="industry" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">-->
+<!--  <option value="">-- Select Industry --</option>-->
+<!--  <option value="Automotive">Automotive</option>-->
+<!--  <option value="Media">Media</option>-->
+<!--  <option value="Education">Education</option>-->
+<!--  <option value="Consulting">Consulting</option>-->
+<!--  <option value="Healthcare">Healthcare</option>-->
+<!--  <option value="Gaming">Gaming</option>-->
+<!--  <option value="Government">Government</option>-->
+<!--  <option value="Telecommunications">Telecommunications</option>-->
+<!--  <option value="Manufacturing">Manufacturing</option>-->
+<!--  <option value="Energy">Energy</option>-->
+<!--  <option value="Technology">Technology</option>-->
+<!--  <option value="Real Estate">Real Estate</option>-->
+<!--  <option value="Finance">Finance</option>-->
+<!--  <option value="Transportation">Transportation</option>-->
+<!--  <option value="Retail">Retail</option>-->
+<!--</select>-->
+<!--        <div>-->
+<!--          <label for="job_description_length" class="block text-sm font-medium text-gray-700">Job Description Length</label>-->
+<!--          <input type="number" id="job_description_length" name="job_description_length" min="500" max="2500" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">-->
+<!--        </div>-->
+<!--        <div>-->
+<!--          <label for="benefits_score" class="block text-sm font-medium text-gray-700">Benefits Score</label>-->
+<!--          <input type="number" id="benefits_score" name="benefits_score" min="1" max="10" step="0.1" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">-->
+<!--        </div>-->
+<!--        <select name="algorithm" class="p-2 border rounded">-->
+<!--          <option value="" disabled selected>Select Algorithm</option>-->
+<!--          <option value="linear">Linear Regression</option>-->
+<!--          <option value="random_forest">Random Forest</option>-->
+<!--          <option value="xgboost">XGBoost</option>-->
+<!--          <option value="decision tree">decisiton tree</option>-->
+<!--        </select>-->
+<!--        <div class="flex justify-center">-->
+<!--          <button type="submit" class="mt-4 px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">Predict Salary</button>-->
+<!--        </div>-->
+<!--      </form>-->
       
-      <div class="mt-6 bg-green-100 p-4 rounded-lg text-center">
-          <h2 class="text-2xl font-semibold text-green-700">Predicted Salary</h2>
-          <p class="text-xl text-green-900 mt-2">${{ predicted_salary }}</p>
+<!--      <div class="mt-6 bg-green-100 p-4 rounded-lg text-center">-->
+<!--          <h2 class="text-2xl font-semibold text-green-700">Predicted Salary</h2>-->
+<!--          <p class="text-xl text-green-900 mt-2">${{ predicted_salary }}</p>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </body>-->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Salary Predictor</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center justify-center">
+  <nav class="w-full bg-indigo-600 text-white p-4">
+    <div class="max-w-7xl mx-auto flex justify-between items-center">
+      <a href="/" class="text-xl font-semibold">AI Salary Predictor</a>
+      <div class="space-x-4">
+        <a href="https://www.kaggle.com/datasets/bismasajjad/global-ai-job-market-and-salary-trends-2025/data" target="_blank" class="hover:underline">Dataset</a>
+        <a href="#form" class="hover:underline">Test</a>
       </div>
     </div>
-  </body>
+  </nav>
+
+  <div class="max-w-2xl w-full bg-white rounded-2xl shadow-xl p-8 mt-8">
+    <h1 class="text-3xl font-bold text-center text-indigo-600 mb-6">AI Salary Predictor</h1>
+    <p class="text-gray-700 mb-4 text-justify">
+      This project is built using the <strong>AI Job Market dataset</strong>. Our team has trained multiple machine learning models to predict salaries based on job-related input fields. You can enter your information below and select one of four algorithms to see a predicted salary.
+    </p>
+
+    <form id="form" action="/lr" method="POST" class="space-y-4">
+      {% csrf_token %}
+      <label for="job_title" class="block text-sm font-medium text-gray-700">Job Title</label>
+      <select name="job_title" id="job_title" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md shadow-sm">
+        <option value="">-- Select Job Title --</option>
+        <option value="AI Research Scientist">AI Research Scientist</option>
+        <option value="AI Software Engineer">AI Software Engineer</option>
+        <option value="AI Specialist">AI Specialist</option>
+        <option value="NLP Engineer">NLP Engineer</option>
+        <option value="AI Consultant">AI Consultant</option>
+        <option value="AI Architect">AI Architect</option>
+        <option value="Principal Data Scientist">Principal Data Scientist</option>
+        <option value="Data Analyst">Data Analyst</option>
+        <option value="Autonomous Systems Engineer">Autonomous Systems Engineer</option>
+        <option value="AI Product Manager">AI Product Manager</option>
+        <option value="Machine Learning Engineer">Machine Learning Engineer</option>
+        <option value="Data Engineer">Data Engineer</option>
+        <option value="Research Scientist">Research Scientist</option>
+        <option value="ML Ops Engineer">ML Ops Engineer</option>
+        <option value="Robotics Engineer">Robotics Engineer</option>
+        <option value="Head of AI">Head of AI</option>
+        <option value="Deep Learning Engineer">Deep Learning Engineer</option>
+        <option value="Data Scientist">Data Scientist</option>
+        <option value="Machine Learning Researcher">Machine Learning Researcher</option>
+        <option value="Computer Vision Engineer">Computer Vision Engineer</option>
+      </select>
+
+      <div>
+        <label for="experience_level" class="block text-sm font-medium text-gray-700">Experience Level</label>
+        <select id="experience_level" name="experience_level" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+          <option value="EN">Entry</option>
+          <option value="MI">Mid</option>
+          <option value="SE">Senior</option>
+          <option value="EX">Executive</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="employment_type" class="block text-sm font-medium text-gray-700">Employment Type</label>
+        <select id="employment_type" name="employment_type" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+          <option value="FT">Full-time</option>
+          <option value="PT">Part-time</option>
+          <option value="CT">Contract</option>
+          <option value="FL">Freelance</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="company_location" class="block text-sm font-medium text-gray-700">Company Location</label>
+        <select id="company_location" name="company_location" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+          <option value="China">China</option>
+          <option value="Canada">Canada</option>
+          <option value="Switzerland">Switzerland</option>
+          <option value="India">India</option>
+          <option value="France">France</option>
+          <option value="Germany">Germany</option>
+          <option value="United Kingdom">United Kingdom</option>
+          <option value="Singapore">Singapore</option>
+          <option value="Austria">Austria</option>
+          <option value="Sweden">Sweden</option>
+          <option value="South Korea">South Korea</option>
+          <option value="Norway">Norway</option>
+          <option value="Netherlands">Netherlands</option>
+          <option value="United States">United States</option>
+          <option value="Israel">Israel</option>
+          <option value="Australia">Australia</option>
+          <option value="Ireland">Ireland</option>
+          <option value="Denmark">Denmark</option>
+          <option value="Finland">Finland</option>
+          <option value="Japan">Japan</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="company_size" class="block text-sm font-medium text-gray-700">Company Size</label>
+        <select id="company_size" name="company_size" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+          <option value="S">Small</option>
+          <option value="M">Medium</option>
+          <option value="L">Large</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="employee_residence" class="block text-sm font-medium text-gray-700">Employee Residence</label>
+        <select id="employee_residence" name="employee_residence" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+          <option value="China">China</option>
+          <option value="Ireland">Ireland</option>
+          <option value="South Korea">South Korea</option>
+          <option value="India">India</option>
+          <option value="Singapore">Singapore</option>
+          <option value="Germany">Germany</option>
+          <option value="United Kingdom">United Kingdom</option>
+          <option value="France">France</option>
+          <option value="Austria">Austria</option>
+          <option value="Sweden">Sweden</option>
+          <option value="Norway">Norway</option>
+          <option value="Israel">Israel</option>
+          <option value="United States">United States</option>
+          <option value="Netherlands">Netherlands</option>
+          <option value="Denmark">Denmark</option>
+          <option value="Switzerland">Switzerland</option>
+          <option value="Finland">Finland</option>
+          <option value="Japan">Japan</option>
+          <option value="Canada">Canada</option>
+          <option value="Australia">Australia</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="remote_ratio" class="block text-sm font-medium text-gray-700">Remote Ratio</label>
+        <select id="remote_ratio" name="remote_ratio" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+          <option value="0">0%</option>
+          <option value="50">50%</option>
+          <option value="100">100%</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="education_required" class="block text-sm font-medium text-gray-700">Education Required</label>
+        <select id="education_required" name="education_required" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+          <option value="Bachelor">Bachelor</option>
+          <option value="Master">Master</option>
+          <option value="Associate">Associate</option>
+          <option value="PhD">PhD</option>
+        </select>
+      </div>
+
+      <div>
+        <label for="years_experience" class="block text-sm font-medium text-gray-700">Years of Experience</label>
+        <input type="number" id="years_experience" name="years_experience" min="0" max="20" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+      </div>
+
+      <label for="industry" class="block text-sm font-medium text-gray-700">Industry</label>
+      <select name="industry" id="industry" required class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+        <option value="">-- Select Industry --</option>
+        <option value="Automotive">Automotive</option>
+        <option value="Media">Media</option>
+        <option value="Education">Education</option>
+        <option value="Consulting">Consulting</option>
+        <option value="Healthcare">Healthcare</option>
+        <option value="Gaming">Gaming</option>
+        <option value="Government">Government</option>
+        <option value="Telecommunications">Telecommunications</option>
+        <option value="Manufacturing">Manufacturing</option>
+        <option value="Energy">Energy</option>
+        <option value="Technology">Technology</option>
+        <option value="Real Estate">Real Estate</option>
+        <option value="Finance">Finance</option>
+        <option value="Transportation">Transportation</option>
+        <option value="Retail">Retail</option>
+      </select>
+
+      <div>
+        <label for="job_description_length" class="block text-sm font-medium text-gray-700">Job Description Length</label>
+        <input type="number" id="job_description_length" name="job_description_length" min="500" max="2500" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+      </div>
+
+      <div>
+        <label for="benefits_score" class="block text-sm font-medium text-gray-700">Benefits Score</label>
+        <input type="number" id="benefits_score" name="benefits_score" min="1" max="10" step="0.1" class="mt-1 block w-full p-2 border border-gray-300 rounded-md">
+      </div>
+
+      <select name="algorithm" class="p-2 border rounded">
+        <option value="" disabled selected>Select Algorithm</option>
+        <option value="linear">Linear Regression</option>
+        <option value="random_forest">Random Forest</option>
+        <option value="xgboost">XGBoost</option>
+        <option value="decision tree">decisiton tree</option>
+      </select>
+
+      <div class="flex justify-center">
+        <button type="submit" class="mt-4 px-6 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700">Predict Salary</button>
+      </div>
+    </form>
+
+    {% if predicted_salary %}
+      <div class="mt-6 bg-green-100 p-4 rounded-lg text-center">
+        <h2 class="text-2xl font-semibold text-green-700">Predicted Salary</h2>
+        <p class="text-xl text-green-900 mt-2">${{ predicted_salary }}</p>
+      </div>
+
+      <div class="mt-4 text-center">
+        <form action="{% url 'show_metrics' %}" method="get">
+          <button type="submit" class="mt-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+            View Model Metrics
+          </button>
+        </form>
+      </div>
+    {% endif %}
+  </div>
+</body>
+</html>
